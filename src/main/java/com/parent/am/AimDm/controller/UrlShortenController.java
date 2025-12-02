@@ -1,6 +1,8 @@
 package com.parent.am.AimDm.controller;
 
 import com.parent.am.AimDm.dto.UrlShortRequest;
+import com.parent.am.AimDm.dto.UrlShortResponse;
+import com.parent.am.AimDm.service.UrlShortenService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,8 +12,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1")
 public class UrlShortenController {
 
+    private final UrlShortenService urlShortenService;
+
+    public UrlShortenController(UrlShortenService urlShortenService){
+        this.urlShortenService=urlShortenService;
+    }
+
     @PostMapping("/addUrl")
     public String urlShorten(@RequestBody UrlShortRequest request){
+        UrlShortResponse response=urlShortenService.shorten(request);
         return "";
     }
 }
